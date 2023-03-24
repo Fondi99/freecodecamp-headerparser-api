@@ -5,6 +5,9 @@
 require('dotenv').config();
 var express = require('express');
 var app = express();
+//This is for the req.ip to get real ip
+const dns = require('dns');
+dns.setDefaultResultOrder('ipv4first');
 
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC
@@ -28,3 +31,11 @@ app.get('/api/hello', function (req, res) {
 var listener = app.listen(process.env.PORT || 3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
+
+app.enable('trust proxy')
+app.get("/api/whoami", function (req, res) {
+  let ip = req.ip
+  let lang = req.get('accept-language')
+  let software = req.get('user-agent')
+  res.json({ ipaddress: ip, language: lang, software: software })
+})
