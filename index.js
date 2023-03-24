@@ -5,9 +5,6 @@
 require('dotenv').config();
 var express = require('express');
 var app = express();
-//This is for the req.ip to get real ip
-const dns = require('dns');
-dns.setDefaultResultOrder('ipv4first');
 
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC
